@@ -2,46 +2,21 @@ const express = require('express');
 const Persistance = require('./persistance');
 const { Router } = express
 const persistance = new Persistance.Persistance();
-const router = Router()
-const {engine} = require('express-handlebars');
 const app = express()
+const router = Router()
 
 const PORT = 8080
 app.use(express.json())
-app.use(express.static('views'));
-
-
-app.engine(
-    'hbs',
-     engine({
-        extname:'hbs',
-        defaultLayout:'index',
-        layoutsDir: __dirname +'/views/layouts',
-        partialsDir: __dirname +'/views/partials',       
-    })
-);
-
-app.set('view engine','hbs');
+app.use(express.static('static'));
 
 
 const server = app.listen(PORT, () => {
     console.log('Server started on port ' + PORT);
+
 });
 
-
-//-----------------------------------------------------------------------------------------------------//
-
-
-app.get('/productos', (req,res) =>{
-    res.render('listproductos',{layout: 'index', productos: persistance.getProductos()})
-})
-
-app.get('/hello', (req, res) => {
-    res.render('hello.pug', { mensaje:'Usando Pug JS en Express'});
-});
-
-app.get('/',(req,res)=>{
-    res.render("AgregarProducto");
+router.get('/',(req,res)=>{
+    res.render("index.html");
 })
 
 router.get('/productos', (req, res) => {

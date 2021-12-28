@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<style>
+    input[type=text],
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
+
+<body>
+
+    <h3>Agregar Producto</h3>
+
+    <div>
+        <div>
+            <label for="fname">Title</label>
+            <input type="text" id="title" name="title" placeholder="Product title..">
+
+            <label for="lname">Price</label>
+            <input type="text" id="price" name="price" placeholder="Product price..">
+
+            <label for="lname">Thumbnail</label>
+            <input type="text" id="thumbnail" name="thumbnail" placeholder="Product thumbnail..">
+
+            <button onclick="sendProducto()">Crear</button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function sendProducto() {
+        var data = {
+            title: document.getElementById("title").value,
+            price: document.getElementById("price").value,
+            thumbnail: document.getElementById("thumbnail").value
+        }
+        fetch("/api/productos", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(res => {
+             document.getElementById("title").value ="",
+             document.getElementById("price").value="",
+             document.getElementById("thumbnail").value="";
+
+            console.log("Request complete! response:", res);
+        });
+
+    }
+</script>
+
+</html>
