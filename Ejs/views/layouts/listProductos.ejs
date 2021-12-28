@@ -1,0 +1,53 @@
+<html lang='en'>
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body>
+    <div class='container'>
+        <% if(productos.length>=1){ %>
+
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Foto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% productos.forEach(function(producto) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= producto.id %>
+                        </th>
+                        <td>
+                            <%= producto.title %>
+                        </td>
+                        <td>
+                            <%= producto.price %>
+                        </td>
+                        <td><img style='max-height:30px;' class="img-fluid" src=<%=producto.thumbnail %> alt=""></td>
+                    </tr>
+
+                    <% }); %>
+
+            </tbody>
+        </table>
+
+          
+        <% } else{ %>  
+            <div align= 'center' class="alert alert-warning" role="alert">
+                No hay productos wachin
+              </div>
+            <% } %>
+
+        <br />
+        <br />
+        <a class="btn btn-dark" href="/">agregar producto</a>
+
+    </div>
+
+</body>
